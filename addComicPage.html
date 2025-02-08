@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+
+    <title>Add</title>
+</head>
+<body>
+    <header></header>
+
+    <!-- Navs -->
+    <div class="nav-wrapper">
+        <nav class="main-nav">
+            <div class="nav-item"><a href="toReadPage.html">To-Read</a></div>
+            <div class="nav-item"><a href="completedPage.html">Completed</a></div>
+            <div class="nav-item"><a href="addComicPage.html">Add a Comic</a></div>
+            <div class="nav-item"><a href="homepage.html">Home</a></div>
+            
+        </nav>
+    </div>
+
+    <main>
+        <section>
+            <h2>Information</h2>
+            <!-- Required Information -->
+            <fieldset>
+                <legend>Required Information</legend>
+                <p>
+                    <label for="comicName">Comic Name:*</label>
+                    <input type="text" name="comicName" id="comicName"
+                    required
+                    placeholder="Uncanny X-Men"
+                    autofocus
+                    >
+                </p>
+                <p>
+                    <label for="issueNumber">Issue #:*</label>
+                    <input type="number" name="issueNumber" id="issueNumber"
+                    required
+                    placeholder="33"
+                    >
+                </p>
+                <p>
+                    <label for="volumeNumber">Vol #:*</label>
+                    <input type="number" name="volumeNumber" id="volumeNumber"
+                    placeholder="1"
+                    required
+                    >
+                </p>
+            </fieldset>
+                
+            <!-- Optional Information -->
+            <fieldset>
+                <p>
+                    <label for="author">Author</label>
+                    <input type="text" name="author" id="author"
+                    placeholder="Roy Thomas"
+                    >
+                </p>
+                <p>
+                    <label for="artist">Artist</label>
+                    <input type="text" name="artist" id="artist"
+                    placeholder="Werner Roth"
+                    >
+                </p>
+                <p>
+                    <label for="artist">Artist</label>
+                    <input type="text" name="artist" id="artist"
+                    placeholder="Werner Roth"
+                    >
+                </p>
+                <p>
+                    <label for="year">Year</label>
+                    <input type="year" name="year" id="year"
+                    placeholder="1967"
+                    >
+                </p>
+                <p>
+                    <label for="publisher">Publisher</label>
+                    <input type="text" name="publisher" id="publisher"
+                    placeholder="Marvel"
+                    >
+                </p>
+            </fieldset>
+        </section>
+    </main>
+</html>

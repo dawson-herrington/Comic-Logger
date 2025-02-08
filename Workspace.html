@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Dawson Herrington</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="'robots" content="noindex,noarchive,nofollow">
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> 
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png"> 
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"> 
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"> 
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+    <header>
+        <h1>Dawson Herrington</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+    <main>
+        <section>
+            <h2>Contact</h2>
+            <article>
+                <p>As this is a living portfolio, please contact me with your own thoughts as to what
+                    content should be included on this website! An asterisk denotes a required field.
+                </p>
+            </article>
+            <form action="/review" method="POST">
+                <fieldset>
+                    <legend>Please provide your information so that I can get back to you.</legend>
+                    <p>
+                        <label for="comicName">Comic Name:*</label>
+                        <input type="text" name="comicName" id="comicName"
+                        required
+                        placeholder="Uncanny X-Men"
+                        autofocus
+                        >
+                    </p>
+    
+                    
+                </fieldset>
+                <fieldset>
+                    <legend>Optional Survey:</legend>
+                    <p>
+                        <label for="role"></label> What is your role?
+                        <select name="role" id="role">
+                            <option value="student"> Student</option>
+                            <option value="teacher"> Teacher</option>
+                            <option value="independent learner">Independent Learner</option>
+                            <option value="professional">Professional</option>
+                            <option value="recruiter">Recruiter</option>
+                            <option value="accidental">Someone who found this site by accident...</option>
+                        </select>
+                    </p>
+                    <p>
+                        Do you enjoy the television program Twin Peaks?
+                    </p>
+                    <p>
+                        <label for="Yes!">
+                            <input type="radio" name="choice" id="Yes!" value="Yes">
+                            Yes!
+                        </label>
+                        <label for="Maybe?">
+                            <input type="radio" name="choice" id="Maybe?" value="Maybe">
+                            Maybe?
+                        </label>
+                        <label for="No!">
+                            <input type="radio" name="choice" id="no!" value="No">
+                            No!
+                        </label>
+                    </p>
+                    <p>
+                        <legend>Of the following projects, check those that you would like to see developed:</legend>
+                    <p>
+                        <label for="insectConvolutionalNeuralNet">
+                            <input type="checkbox" name="projects" id="cnn" value="Insect Identification Convolutional Neural Network">
+                            Insect Identification Convolutional Neural Network
+                        </label>
+
+                        <label for="chatBot">
+                            <input type="checkbox" name="projects" id="chatbot" value="Dawson Chatbot">
+                            Dawson Chatbot
+                        </label>
+
+                        <label for="flashGame">
+                            <input type="checkbox" name="projects" id="flashGame" value="Flash Game Archive">
+                            Flash Game Archive
+                        </label>
+
+                        <label for="websiteBuilder">
+                            <input type="checkbox" name="projects" id="websiteBuilder" value="Website Builder">
+                            Website Builder
+                        </label>
+                    </p>
+                </fieldset>
+            
+                <fieldset>
+                    <button type="submit">Submit</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>
+            &copy; 2024 Dawson Herrington
+        </p>
+    </footer>
+</body>
+</html>
