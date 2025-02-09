@@ -123,12 +123,18 @@
               publisher: document.getElementById('publisher').value,
             };
       
-            // Send the data to the backend 
+            // Send to backend
             window.electronAPI.saveComicData(comicData);
       
             // clear
             form.reset();
-            alert('Comic data saved!');
+
+            // redirect to appropriate list
+            if (comicData.list === 'readList') {
+                window.location.href = 'toReadPage.html';
+            } else if (comicData.list === 'completedList') {
+                window.location.href = 'completedPage.html';
+            }
           })
         })
       </script>      

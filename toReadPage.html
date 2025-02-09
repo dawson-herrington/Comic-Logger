@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-
     <title>To-Read</title>
 </head>
 <body>
@@ -20,67 +19,87 @@
         </nav>
     </div>
 
-    
     <main>
         <div class="table-container">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Volume</th>
-                    <th>Author</th>
-                    <th>Info</th>
-                    <th>Mark Complete</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                    <td colspan="6" style="text-align: center;">
-                        <button><a href="addComicPage.html">Add a Comic</a></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Volume</th>
+                        <th>Author</th>
+                        <th>Info</th>
+                        <th>Mark Complete</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            <button><a href="addComicPage.html">Add a Comic</a></button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-
-
     </main>
 
-    <!-- Script to populate the to-read table dynamically -->
+    <!-- Script to populate the to-read dynamically -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // get data from the backend
-            const toReadData = await window.electronAPI.getToReadData();
-      
-            // Get the table body
-            const tableBody = document.querySelector('table tbody');
-      
-      
-            // Populate the table with data
-            toReadData.forEach(comic => {
-                const row = tableBody.insertRow();
-      
-                // Create cells for Name, Volume, Author
-                const nameCell = row.insertCell(0);
-                const volumeCell = row.insertCell(1);
-                const authorCell = row.insertCell(2);
-      
-                // Name = Comic Name + Issue Number
-                nameCell.textContent = `${comic.comicName} #${comic.issueNumber}`;
-                volumeCell.textContent = comic.volumeNumber;
-                authorCell.textContent = comic.author;
-      
-                // Add buttons for Info, Mark Complete, and Delete
-                const infoCell = row.insertCell(3);
-                const completeCell = row.insertCell(4);
-                const deleteCell = row.insertCell(5);
-      
-                infoCell.innerHTML = '<button>Info</button>';
-                completeCell.innerHTML = '<button>Mark Complete</button>';
-                deleteCell.innerHTML = '<button>Delete</button>';
-            });
+            console.log('To-Read Page Loaded.');
+
+            try {
+                // Get from backend
+                const toReadData = await window.electronAPI.getToReadData();
+                console.log('Fetched To-Read Data:', toReadData);
+
+                // Check if valid
+                if (!toReadData || toReadData.length === 0) {
+                    console.warn('No data found in To-Read list.');
+                    return;
+                }
+
+                // Get the table body
+                const tableBody = document.querySelector('table tbody');
+
+                // Populate the table with data
+                toReadData.forEach((comic, index) => {
+                    console.log('Processing Comic:', comic, 'Index:', index);
+                    const row = tableBody.insertRow();
+
+                    // Create name, vol, and author
+                    const nameCell = row.insertCell(0);
+                    const volumeCell = row.insertCell(1);
+                    const authorCell = row.insertCell(2);
+
+                    nameCell.textContent = `${comic.comicName} #${comic.issueNumber}`;
+                    volumeCell.textContent = comic.volumeNumber;
+                    authorCell.textContent = comic.author;
+
+                    // Create buttons
+                    const infoCell = row.insertCell(3);
+                    const completeCell = row.insertCell(4);
+                    const deleteCell = row.insertCell(5);
+
+                    infoCell.innerHTML = '<button>Info</button>';
+                    completeCell.innerHTML = `<button class="mark-complete-button" data-index="${index}">Mark Complete</button>`;
+                    deleteCell.innerHTML = '<button>Delete</button>';
+
+                    // listener to button
+                    const markCompleteBtn = completeCell.querySelector('.mark-complete-button');
+                    markCompleteBtn.addEventListener('click', () => {
+                        console.log('Mark Complete Button Clicked. Comic ID:', index);
+                        window.location.href = `markCompletePage.html?comicId=${index}`;
+                    });
+                });
+
+                console.log('To-Read Table Populated.');
+            } catch (error) {
+                console.error('Error populating To-Read list:', error);
+            }
         });
-      </script>
+    </script>
+
 </body>
 </html>

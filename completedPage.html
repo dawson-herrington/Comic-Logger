@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-
-    <title>Completed</title>
+    <title>Completed Comics</title>
 </head>
 <body>
     <header></header>
@@ -20,13 +19,75 @@
         </nav>
     </div>
 
-    <!-- Blurbs-->
-    <div class="blurb-container">
-        <p class="blurb">Click here to see the comics you want to read!</p>
-        <p class="blurb">Click here to see the comics you have completed!</p>
-        <p class="blurb">Click here to add a comic to either list!</p>
-        <p class="blurb">Click here to go back to the home page!</p>
-    </div>
+    <main>
+        <h2>Completed Comics</h2>
+        <div class="table-container">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Volume</th>
+                        <th>Author</th>
+                        <th>Rating</th>
+                        <th>Review</th>
+                        <th>Info</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
 
-    <main></main>
+    <!-- Script to populate tsble dynamically -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('Completed Page Loaded.');
+
+            try {
+                // Get from the backend
+                const completedData = await window.electronAPI.getCompletedData();
+                console.log('Fetched Completed Data:', completedData);
+
+                // Check if valid
+                if (!completedData || completedData.length === 0) {
+                    console.warn('No data found in Completed list.');
+                    return;
+                }
+
+                // Get the table body
+                const tableBody = document.querySelector('table tbody');
+
+                // Populate the table 
+                completedData.forEach((comic, index) => {
+                    console.log('Processing Comic:', comic, 'Index:', index);
+                    const row = tableBody.insertRow();
+
+                    // Create cells for name, volume, author, rating, and review
+                    const nameCell = row.insertCell(0);
+                    const volumeCell = row.insertCell(1);
+                    const authorCell = row.insertCell(2);
+                    const ratingCell = row.insertCell(3);
+                    const reviewCell = row.insertCell(4);
+                    const infoCell = row.insertCell(5);
+                    const deleteCell = row.insertCell(6);
+
+                    nameCell.textContent = `${comic.comicName} #${comic.issueNumber}`;
+                    volumeCell.textContent = comic.volumeNumber;
+                    authorCell.textContent = comic.author;
+                    ratingCell.textContent = comic.rating || ' ';
+                    reviewCell.textContent = comic.review || ' ';
+
+                    // Create buttons
+                    infoCell.innerHTML = '<button>Info</button>';
+                    deleteCell.innerHTML = '<button>Delete</button>';
+                });
+
+                console.log('Completed Table Populated.');
+            } catch (error) {
+                console.error('Error populating Completed list:', error);
+            }
+        });
+    </script>
+</body>
 </html>

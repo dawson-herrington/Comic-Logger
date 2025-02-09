@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <title>Mark Complete</title>
+</head>
+<body>
+    <header></header>
+
+    <!-- Navs -->
+    <div class="nav-wrapper">
+        <nav class="main-nav">
+            <div class="nav-item"><a href="toReadPage.html">To-Read</a></div>
+            <div class="nav-item"><a href="completedPage.html">Completed</a></div>
+            <div class="nav-item"><a href="addComicPage.html">Add a Comic</a></div>
+            <div class="nav-item"><a href="homepage.html">Home</a></div>
+        </nav>
+    </div>
+
+    <main>
+        <h2>Mark Complete</h2>
+        <h3>Congratulations! You have completed another issue!</h3>
+
+        <div id="comic-details"></div>
+
+        <section>
+            <h2>Rate and Review (Optional)</h2>
+            <form id="mark-complete-form">
+                <fieldset>
+                    <p>
+                        <label for="rating">Rating (0-100):</label>
+                        <input type="number" name="rating" id="rating" autofocus>
+                    </p>
+                    <p>
+                        <label for="review">Review:</label>
+                        <input type="text" name="review" id="review">
+                    </p>
+                </fieldset>
+
+                <button type="button" id="cancel-button">Cancel</button>
+                <button type="submit" id="submit-button">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('Mark Complete Page Loaded.');
+
+            try {
+                // Get comic ID from query parameter
+                const params = new URLSearchParams(window.location.search);
+                const comicId = params.get('comicId');
+
+                // Fetch all To-Read comics
+                const toReadData = await window.electronAPI.getToReadData();
+                const comic = toReadData[comicId];
+
+                // Display comic details
+                const detailsDiv = document.getElementById('comic-details');
+                detailsDiv.innerHTML = `<p><strong>Name:</strong> ${comic.comicName} #${comic.issueNumber}</p>`;
+
+                // Cancel button event
+                document.getElementById('cancel-button').addEventListener('click', () => {
+                    window.location.href = 'toReadPage.html';
+                });
+
+                // Submit form event
+                document.getElementById('mark-complete-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const rating = document.getElementById('rating').value;
+                    const review = document.getElementById('review').value;
+
+                    const updatedComic = {
+                        ...comic,
+                        rating: parseInt(rating, 10),
+                        review: review,
+                    };
+
+                    await window.electronAPI.markComicComplete(comicId, updatedComic);
+                    window.location.href = 'completedPage.html';
+                });
+            } catch (error) {
+                console.error('Error on Mark Complete page:', error);
+            }
+        });
+    </script>
+</body>
+</html>
