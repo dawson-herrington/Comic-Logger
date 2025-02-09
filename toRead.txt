@@ -1,0 +1,3 @@
+{"comicName":"Test Name","issueNumber":"1","volumeNumber":"1","list":"readList","author":"Test Author","artist":"Test Artist","year":"2025","publisher":"Test Publisher"}
+{"comicName":"Amazing Spiderman","issueNumber":"22","volumeNumber":"99","list":"readList","author":"","artist":"","year":"","publisher":""}
+{"comicName":"Mambt","issueNumber":"31","volumeNumber":"2","list":"readList","author":"Daws","artist":"","year":"","publisher":""}

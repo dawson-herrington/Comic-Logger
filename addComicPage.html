@@ -24,66 +24,111 @@
     <main>
         <section>
             <h2>Information</h2>
-            <!-- Required Information -->
-            <fieldset>
-                <legend>Required Information</legend>
-                <p>
-                    <label for="comicName">Comic Name:*</label>
-                    <input type="text" name="comicName" id="comicName"
-                    required
-                    placeholder="Uncanny X-Men"
-                    autofocus
-                    >
-                </p>
-                <p>
-                    <label for="issueNumber">Issue #:*</label>
-                    <input type="number" name="issueNumber" id="issueNumber"
-                    required
-                    placeholder="33"
-                    >
-                </p>
-                <p>
-                    <label for="volumeNumber">Vol #:*</label>
-                    <input type="number" name="volumeNumber" id="volumeNumber"
-                    placeholder="1"
-                    required
-                    >
-                </p>
-            </fieldset>
-                
-            <!-- Optional Information -->
-            <fieldset>
-                <p>
-                    <label for="author">Author</label>
-                    <input type="text" name="author" id="author"
-                    placeholder="Roy Thomas"
-                    >
-                </p>
-                <p>
-                    <label for="artist">Artist</label>
-                    <input type="text" name="artist" id="artist"
-                    placeholder="Werner Roth"
-                    >
-                </p>
-                <p>
-                    <label for="artist">Artist</label>
-                    <input type="text" name="artist" id="artist"
-                    placeholder="Werner Roth"
-                    >
-                </p>
-                <p>
-                    <label for="year">Year</label>
-                    <input type="year" name="year" id="year"
-                    placeholder="1967"
-                    >
-                </p>
-                <p>
-                    <label for="publisher">Publisher</label>
-                    <input type="text" name="publisher" id="publisher"
-                    placeholder="Marvel"
-                    >
-                </p>
-            </fieldset>
+            <form>
+                <!-- Required Information -->
+                <fieldset>
+                    <legend>Required Information</legend>
+                    <p>
+                        <label for="comicName">Comic Name:*</label>
+                        <input type="text" name="comicName" id="comicName"
+                        required
+                        placeholder="Uncanny X-Men"
+                        autofocus
+                        >
+                    </p>
+                    <p>
+                        <label for="issueNumber">Issue #:*</label>
+                        <input type="number" name="issueNumber" id="issueNumber"
+                        required
+                        placeholder="33"
+                        >
+                    </p>
+                    <p>
+                        <label for="volumeNumber">Vol #:*</label>
+                        <input type="number" name="volumeNumber" id="volumeNumber"
+                        placeholder="1"
+                        required
+                        >
+                    </p>
+
+                    <p>
+                        <legend>Which list should this comic be added to?*</legend>
+                    </p>
+                    <p>
+                        <label for="readList">
+                            <input type="radio" name="list" id="readList", value="readList" required>
+                            To-Read List
+                        </label>
+                    </p>
+                    <p>
+                        <label for="completedList">
+                            <input type="radio" name="list" id="completedList", value="completedList" required>
+                            Completed List
+                        </label>
+                    </p>
+
+                </fieldset>
+                    
+                <!-- Optional Information -->
+                <fieldset>
+                    <p>
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author"
+                        placeholder="Roy Thomas"
+                        >
+                    </p>
+                    <p>
+                        <label for="artist">Artist</label>
+                        <input type="text" name="artist" id="artist"
+                        placeholder="Werner Roth"
+                        >
+                    </p>
+                    <p>
+                        <label for="year">Year</label>
+                        <input type="year" name="year" id="year"
+                        placeholder="1967"
+                        >
+                    </p>
+                    <p>
+                        <label for="publisher">Publisher</label>
+                        <input type="text" name="publisher" id="publisher"
+                        placeholder="Marvel"
+                        >
+                    </p>
+                </fieldset>
+                <button type="submit">Save Comic</button>
+            </form>
         </section>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // Get the form element
+          const form = document.querySelector('form');
+      
+          // Listen for the form submission
+          form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent page reload
+      
+            // Collect form data and format JSON
+            const comicData = {
+              comicName: document.getElementById('comicName').value,
+              issueNumber: document.getElementById('issueNumber').value,
+              volumeNumber: document.getElementById('volumeNumber').value,
+              list: document.querySelector('input[name="list"]:checked')?.value || 'unknown', // Get the selected radio button
+              author: document.getElementById('author').value,
+              artist: document.getElementById('artist').value,
+              year: document.getElementById('year').value,
+              publisher: document.getElementById('publisher').value,
+            };
+      
+            // Send the data to the backend 
+            window.electronAPI.saveComicData(comicData);
+      
+            // clear
+            form.reset();
+            alert('Comic data saved!');
+          })
+        })
+      </script>      
+</body>
 </html>
