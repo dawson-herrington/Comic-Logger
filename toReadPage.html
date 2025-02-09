@@ -22,7 +22,7 @@
 
     
     <main>
-
+        <div class="table-container">
         <table border="1">
             <thead>
                 <tr>
@@ -35,22 +35,52 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Example Comic</td>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td><button>Info</button></td>
-                    <td><button>Mark Complete</button></td>
-                    <td><button> Delete</button></td>
-                </tr>
-                <tr>
+                
                     <td colspan="6" style="text-align: center;">
                         <button><a href="addComicPage.html">Add a Comic</a></button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        </div>
 
 
     </main>
+
+    <!-- Script to populate the to-read table dynamically -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // get data from the backend
+            const toReadData = await window.electronAPI.getToReadData();
+      
+            // Get the table body
+            const tableBody = document.querySelector('table tbody');
+      
+      
+            // Populate the table with data
+            toReadData.forEach(comic => {
+                const row = tableBody.insertRow();
+      
+                // Create cells for Name, Volume, Author
+                const nameCell = row.insertCell(0);
+                const volumeCell = row.insertCell(1);
+                const authorCell = row.insertCell(2);
+      
+                // Name = Comic Name + Issue Number
+                nameCell.textContent = `${comic.comicName} #${comic.issueNumber}`;
+                volumeCell.textContent = comic.volumeNumber;
+                authorCell.textContent = comic.author;
+      
+                // Add buttons for Info, Mark Complete, and Delete
+                const infoCell = row.insertCell(3);
+                const completeCell = row.insertCell(4);
+                const deleteCell = row.insertCell(5);
+      
+                infoCell.innerHTML = '<button>Info</button>';
+                completeCell.innerHTML = '<button>Mark Complete</button>';
+                deleteCell.innerHTML = '<button>Delete</button>';
+            });
+        });
+      </script>
+</body>
 </html>

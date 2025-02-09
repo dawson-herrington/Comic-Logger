@@ -51,3 +51,18 @@ ipcMain.on('save-comic-data', (event, comicData) => {
       }
   });
 });
+
+// listener to get data and populate the to-read list
+ipcMain.handle('get-to-read-data', async () => {
+  const filePath = path.join(__dirname, 'toRead.txt');
+
+  // Read the file and format JSON lines
+  try {
+      const data = fs.readFileSync(filePath, 'utf-8');
+      const lines = data.split('\n').filter(line => line.trim() !== '');
+      return lines.map(line => JSON.parse(line)); 
+  } catch (err) {
+      console.error('Error reading toRead.txt:', err);
+      return []; 
+  }
+});

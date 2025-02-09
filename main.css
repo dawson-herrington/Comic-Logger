@@ -169,6 +169,25 @@
   ins {}
   
   /*  ----- Table ----- */
+
+
+  /* Lock the size of the table and add a scroll bar */
+.table-container {
+  max-height: 400px; /* Set the max height for the table's visible area */
+  overflow-y: auto; /* Add a vertical scroll bar if content overflows */
+  overflow-x: hidden; /* Prevent horizontal scrolling (optional) */
+  border: 1px solid #ccc; /* Optional: border around the scrollable area */
+}
+
+/* Keep the table header visible while scrolling */
+.table-container thead th {
+  position: sticky;
+  top: 0; /* Locks the header row to the top */
+  background-color: #f4f4f4; /* Header background color */
+  z-index: 1; /* Ensure the header stays above the rows */
+}
+
+
   table {}
   caption {}
   thead {}

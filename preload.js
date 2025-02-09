@@ -14,5 +14,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // hook front to back
 contextBridge.exposeInMainWorld('electronAPI', {
+  // save comic to txt
   saveComicData: (comicData) => ipcRenderer.send('save-comic-data', comicData),
+  
+  // read into the to-read list
+  getToReadData: () => ipcRenderer.invoke('get-to-read-data'),
 });
