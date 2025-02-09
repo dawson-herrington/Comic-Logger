@@ -13,4 +13,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
     // Mark comic as complete
     markComicComplete: (comicId, updatedComic) => ipcRenderer.invoke('mark-comic-complete', comicId, updatedComic),
+
+    // deletion
+    deleteComic: (index, listType) => ipcRenderer.invoke('delete-comic', index, listType),
+
 });
