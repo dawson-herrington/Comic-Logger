@@ -89,9 +89,18 @@
                     const completeCell = row.insertCell(4);
                     const deleteCell = row.insertCell(5);
 
-                    infoCell.innerHTML = '<button>Info</button>';
-                    completeCell.innerHTML = `<button class="mark-complete-button" data-index="${index}">Mark Complete</button>`;
-                    deleteCell.innerHTML = `<button class="delete-button" data-index="${index}">Delete</button>`;
+
+                    infoCell.innerHTML = `<button class="info-button" data-index="${index}">Info</button>`;
+                    completeCell.innerHTML = `<button class="mark-complete-button" data-index="${index}" style="background-color: green; color : white;">Mark Complete</button>`;
+                    deleteCell.innerHTML = `<button class="delete-button" data-index="${index}"style="background-color: red; color : white;">Delete</button>`;
+
+                    // Add listener to Info button
+                    const infoBtn = infoCell.querySelector('.info-button');
+                    infoBtn.addEventListener('click', async () => {
+                        // Send comic details to backend 
+                        await window.electronAPI.setComicDetails(comic, 'toRead');
+                        window.location.href = 'infoPage.html';
+                    });
 
                     // Add listener to Mark Complete button
                     const markCompleteBtn = completeCell.querySelector('.mark-complete-button');
@@ -113,7 +122,7 @@
             }
         });
 
-        // Modal popup for delete confirmation
+        // Modal popup 
         const modal = document.getElementById('delete-modal');
         const confirmDelete = document.getElementById('confirm-delete');
         const cancelDelete = document.getElementById('cancel-delete');
@@ -121,19 +130,19 @@
 
         function openDeleteModal(index) {
             deleteIndex = index;
-            modal.classList.remove('hidden'); // Show modal
+            modal.classList.remove('hidden'); 
         }
 
         function closeDeleteModal() {
             deleteIndex = null;
-            modal.classList.add('hidden'); // Hide modal
+            modal.classList.add('hidden'); 
         }
 
         confirmDelete.addEventListener('click', async () => {
             if (deleteIndex !== null) {
                 console.log(`Deleting comic at index: ${deleteIndex}`);
-                await window.electronAPI.deleteComic(deleteIndex, 'toRead'); // Trigger backend deletion
-                location.reload(); // Refresh table after deletion
+                await window.electronAPI.deleteComic(deleteIndex, 'toRead'); 
+                location.reload(); 
             }
             closeDeleteModal();
         });

@@ -109,14 +109,14 @@
       
           // Listen for the form submission
           form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent page reload
+            event.preventDefault(); 
       
-            // Collect form data and format JSON
+            // Collect form data and maek JSON
             const comicData = {
               comicName: document.getElementById('comicName').value,
               issueNumber: document.getElementById('issueNumber').value,
               volumeNumber: document.getElementById('volumeNumber').value,
-              list: document.querySelector('input[name="list"]:checked')?.value || 'unknown', // Get the selected radio button
+              list: document.querySelector('input[name="list"]:checked')?.value || 'unknown', 
               author: document.getElementById('author').value,
               artist: document.getElementById('artist').value,
               year: document.getElementById('year').value,
@@ -129,7 +129,7 @@
             // clear
             form.reset();
 
-            // redirect to appropriate list
+            // redirect to  list
             if (comicData.list === 'readList') {
                 window.location.href = 'toReadPage.html';
             } else if (comicData.list === 'completedList') {

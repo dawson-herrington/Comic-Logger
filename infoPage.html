@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Comic Information</title>
+</head>
+<body>
+    <header></header>
+    <div class="nav-wrapper">
+        <nav class="main-nav">
+            <div class="nav-item"><a href="toReadPage.html">To-Read</a></div>
+            <div class="nav-item"><a href="completedPage.html">Completed</a></div>
+            <div class="nav-item"><a href="addComicPage.html">Add a Comic</a></div>
+            <div class="nav-item"><a href="homepage.html">Home</a></div>
+        </nav>
+    </div>
+
+    <main>
+        <h2>Comic Information</h2>
+        <div id="comic-info">
+            <!-- Comic details will be dynamically populated here -->
+        </div>
+        <button id="back-button">Back</button>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const comicDetails = await window.electronAPI.getComicDetails();
+            const comicInfoDiv = document.getElementById('comic-info');
+
+            comicInfoDiv.innerHTML = `
+                <p><strong>Comic Name:</strong> ${comicDetails.comicName}</p>
+                <p><strong>Issue #:</strong> ${comicDetails.issueNumber}</p>
+                <p><strong>Volume #:</strong> ${comicDetails.volumeNumber}</p>
+                ${comicDetails.author ? `<p><strong>Author:</strong> ${comicDetails.author}</p>` : ''}
+                ${comicDetails.artist ? `<p><strong>Artist:</strong> ${comicDetails.artist}</p>` : ''}
+                ${comicDetails.year ? `<p><strong>Year:</strong> ${comicDetails.year}</p>` : ''}
+                ${comicDetails.publisher ? `<p><strong>Publisher:</strong> ${comicDetails.publisher}</p>` : ''}
+                ${comicDetails.rating ? `<p><strong>Rating:</strong> ${comicDetails.rating}</p>` : ''}
+                ${comicDetails.review ? `<p><strong>Review:</strong> ${comicDetails.review}</p>` : ''}
+            `;
+
+            // Back button to return to page
+            const backButton = document.getElementById('back-button');
+            const backPage = comicDetails.listType === 'toRead' ? 'toReadPage.html' : 'completedPage.html';
+            backButton.addEventListener('click', () => {
+                window.location.href = backPage;
+            });
+        });
+    </script>
+</body>
+</html>

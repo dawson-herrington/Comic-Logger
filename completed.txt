@@ -1,0 +1,2 @@
+{"comicName":"Spoderman","issueNumber":"33","volumeNumber":"1","list":"readList","author":"Bill","artist":"Werner","year":"9999","publisher":"DC","rating":100,"review":"good"}
+{"comicName":"1","issueNumber":"3","volumeNumber":"4","list":"readList","author":"","artist":"","year":"","publisher":"","rating":null,"review":""}

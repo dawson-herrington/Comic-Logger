@@ -17,4 +17,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // deletion
     deleteComic: (index, listType) => ipcRenderer.invoke('delete-comic', index, listType),
 
+    // For infoPage support
+    setComicDetails: (comic, listType) => ipcRenderer.invoke('set-comic-details', comic, listType),
+    getComicDetails: () => ipcRenderer.invoke('get-comic-details'),
+
 });

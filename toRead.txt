@@ -1,0 +1,1 @@
+{"comicName":"Uncanny","issueNumber":"33","volumeNumber":"1","list":"readList","author":"Roy","artist":"Roth","year":"1967","publisher":"Marvel"}

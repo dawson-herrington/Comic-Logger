@@ -84,8 +84,16 @@
                     ratingCell.textContent = comic.rating || 'N/A';
                     reviewCell.textContent = comic.review || 'N/A';
 
-                    infoCell.innerHTML = '<button>Info</button>';
-                    deleteCell.innerHTML = `<button class="delete-button" data-index="${index}">Delete</button>`;
+                    infoCell.innerHTML = `<button class="info-button" data-index="${index}">Info</button>`;
+                    deleteCell.innerHTML = `<button class="delete-button" data-index="${index}"style="background-color: red; color : white;">Delete</button>`;
+                    
+                    // Add Info button functionality
+                    const infoBtn = infoCell.querySelector('.info-button');
+                    infoBtn.addEventListener('click', async () => {
+                        await window.electronAPI.setComicDetails(comic, 'completed'); 
+                        window.location.href = 'infoPage.html'; 
+                    });
+
 
                     // Add delete button functionality
                     const deleteBtn = deleteCell.querySelector('.delete-button');
@@ -102,23 +110,23 @@
         const modal = document.getElementById('delete-modal');
         const confirmDelete = document.getElementById('confirm-delete');
         const cancelDelete = document.getElementById('cancel-delete');
-        let deleteIndex = null; // Store the index of the comic to delete
+        let deleteIndex = null; 
 
         function openDeleteModal(index) {
             deleteIndex = index;
-            modal.classList.remove('hidden'); // Show modal
+            modal.classList.remove('hidden');
         }
 
         function closeDeleteModal() {
             deleteIndex = null;
-            modal.classList.add('hidden'); // Hide modal
+            modal.classList.add('hidden'); 
         }
 
         confirmDelete.addEventListener('click', async () => {
             if (deleteIndex !== null) {
                 console.log(`Deleting comic at index: ${deleteIndex}`);
-                await window.electronAPI.deleteComic(deleteIndex, 'completed'); // Call backend to delete
-                location.reload(); // Refresh page after deletion
+                await window.electronAPI.deleteComic(deleteIndex, 'completed'); 
+                location.reload(); 
             }
             closeDeleteModal();
         });
