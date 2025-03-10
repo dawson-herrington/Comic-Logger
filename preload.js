@@ -26,4 +26,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getRandomComic: () => ipcRenderer.invoke("get-random-comic"),
     setComicDetails: (comic, listType) => ipcRenderer.invoke("set-comic-details", comic, listType),
 
+    //exports
+    requestExport: (listType, format) => ipcRenderer.send("request-export", listType, format),
+
+    // searches
+    requestGoogleSearch: (searchRequest) => ipcRenderer.send("request-google-search", searchRequest),
+
 });

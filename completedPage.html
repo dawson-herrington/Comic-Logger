@@ -20,6 +20,16 @@
     </div>
 
     <main>
+
+        <div class="export-section">
+            <select id="export-format">
+                <option value="csv">Export as CSV</option>
+                <option value="pdf">Export as PDF</option>
+            </select>
+            <button id="export-list">Download List</button>
+        </div>
+
+        
         <h2>Completed Comics</h2>
         <div class="table-container">
             <table border="1">
@@ -50,6 +60,17 @@
 
     <!-- Script to populate and manage the completed table -->
     <script>
+        document.getElementById("export-list").addEventListener("click", async () => {
+            const format = document.getElementById("export-format").value;
+            const listType = window.location.href.includes("toRead") ? "toRead" : "completed";
+
+            // Send request to Electron to generate export file
+            await window.electronAPI.requestExport(listType, format);
+            
+            alert(`Your ${listType} list will be exported as ${format}. Check your Downloads folder.`);
+        });
+
+
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('Completed Page Loaded.');
 

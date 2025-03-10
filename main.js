@@ -125,6 +125,29 @@ ipcMain.handle("get-random-comic", async () => {
     }
 });
 
+const EXPORT_REQUEST_FILE = path.join(__dirname, "export_request.txt");
+
+ipcMain.on("request-export", async (event, listType, format) => {
+    try {
+        const requestData = `${listType} ${format}`;
+        fs.writeFileSync(EXPORT_REQUEST_FILE, requestData, "utf-8");
+        console.log("Export request written:", requestData);
+    } catch (err) {
+        console.error("Error writing export request:", err);
+    }
+});
+
+const SEARCH_REQUEST_FILE = path.join(__dirname, "google_search_request.json");
+
+ipcMain.on("request-google-search", async (event, searchRequest) => {
+    try {
+        fs.writeFileSync(SEARCH_REQUEST_FILE, JSON.stringify(searchRequest, null, 4), "utf-8");
+        console.log("Google search request written:", searchRequest);
+    } catch (err) {
+        console.error("Error writing Google search request:", err);
+    }
+});
+
 
 function createWindow() {
     const win = new BrowserWindow({

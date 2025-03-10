@@ -19,6 +19,15 @@
         </nav>
     </div>
 
+    <div class="export-section">
+        <select id="export-format">
+            <option value="csv">Export as CSV</option>
+            <option value="pdf">Export as PDF</option>
+        </select>
+        <button id="export-list">Download List</button>
+    </div>
+    
+
     <div class="random-selector">
         <select id="random-comic-selector">
             <option value="random">Random</option>
@@ -65,6 +74,17 @@
 
     <!-- Script to handle the To-Read functionality -->
     <script>
+
+        document.getElementById("export-list").addEventListener("click", async () => {
+            const format = document.getElementById("export-format").value;
+            const listType = window.location.href.includes("toRead") ? "toRead" : "completed";
+
+            // Send request to Electron to generate export file
+            await window.electronAPI.requestExport(listType, format);
+            
+            alert(`Your ${listType} list will be exported as ${format}. Check your Downloads folder.`);
+        });
+
         document.getElementById("get-random-comic").addEventListener("click", async () => {
             const selectedOption = document.getElementById("random-comic-selector").value;
             

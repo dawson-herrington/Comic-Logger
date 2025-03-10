@@ -1,2 +1,5 @@
 {"comicName":"SDfawdf","issueNumber":"2","volumeNumber":"22","list":"readList","author":"","artist":"","year":"","publisher":""}
 {"comicName":"asdfa","issueNumber":"11","volumeNumber":"1","list":"readList","author":"","artist":"","year":"","publisher":""}
+{"comicName":"Test Marvel","issueNumber":"22","volumeNumber":"1","list":"readList","author":"R","artist":"df","year":"234","publisher":"Marvel"}
+{"comicName":"Uncanny X-Men","issueNumber":"22","volumeNumber":"1","list":"readList","author":"","artist":"","year":"","publisher":"Marvel"}
+{"comicName":"Batman","issueNumber":"1","volumeNumber":"1","list":"readList","author":"Unknown","artist":"","year":"","publisher":""}
