@@ -19,6 +19,16 @@
         </nav>
     </div>
 
+    <div class="random-selector">
+        <select id="random-comic-selector">
+            <option value="random">Random</option>
+            <option value="marvel">Random Marvel</option>
+            <option value="dc">Random DC</option>
+        </select>
+        <button id="get-random-comic">Get Random Comic</button>
+    </div>
+    
+
     <main>
         <div class="table-container">
             <table border="1">
@@ -55,6 +65,32 @@
 
     <!-- Script to handle the To-Read functionality -->
     <script>
+        document.getElementById("get-random-comic").addEventListener("click", async () => {
+            const selectedOption = document.getElementById("random-comic-selector").value;
+            
+            let requestType = "get random";
+            if (selectedOption === "marvel") {
+                requestType = "get random by Marvel";
+            } else if (selectedOption === "dc") {
+                requestType = "get random by DC";
+            }
+
+            // Send request to backend
+            await window.electronAPI.requestRandomComic(requestType);
+
+            // Wait and fetch result
+            setTimeout(async () => {
+                const randomComic = await window.electronAPI.getRandomComic();
+                if (randomComic && !randomComic.error) {
+                    await window.electronAPI.setComicDetails(randomComic, 'toRead');
+                    window.location.href = 'infoPage.html';
+                } else {
+                    alert(randomComic.error || "Failed to get a random comic.");
+                }
+            }, 3000);
+        });
+
+
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('To-Read Page Loaded.');
 

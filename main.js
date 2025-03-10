@@ -99,6 +99,32 @@ ipcMain.handle('get-comic-details', () => {
     return comicDetails;
 });
 
+const REQUEST_FILE = path.join(__dirname, "get_random.txt");
+const OUTPUT_FILE = path.join(__dirname, "random_comic.txt");
+
+ipcMain.on("request-random-comic", async (event, requestType) => {
+    try {
+        fs.writeFileSync(REQUEST_FILE, requestType, "utf-8");
+        console.log("Random comic request written:", requestType);
+    } catch (err) {
+        console.error("Error writing request file:", err);
+    }
+});
+
+ipcMain.handle("get-random-comic", async () => {
+    try {
+        if (fs.existsSync(OUTPUT_FILE)) {
+            const data = fs.readFileSync(OUTPUT_FILE, "utf-8");
+            fs.unlinkSync(OUTPUT_FILE); // Delete file after reading
+            return JSON.parse(data);
+        }
+        return { error: "No random comic found yet. Try again in a few seconds." };
+    } catch (err) {
+        console.error("Error reading random comic file:", err);
+        return { error: "Failed to retrieve random comic." };
+    }
+});
+
 
 function createWindow() {
     const win = new BrowserWindow({

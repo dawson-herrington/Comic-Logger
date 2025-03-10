@@ -21,4 +21,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     setComicDetails: (comic, listType) => ipcRenderer.invoke('set-comic-details', comic, listType),
     getComicDetails: () => ipcRenderer.invoke('get-comic-details'),
 
+    //random 
+    requestRandomComic: (requestType) => ipcRenderer.send("request-random-comic", requestType),
+    getRandomComic: () => ipcRenderer.invoke("get-random-comic"),
+    setComicDetails: (comic, listType) => ipcRenderer.invoke("set-comic-details", comic, listType),
+
 });

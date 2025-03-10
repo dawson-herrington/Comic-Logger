@@ -1,1 +1,2 @@
-{"comicName":"Uncanny","issueNumber":"33","volumeNumber":"1","list":"readList","author":"Roy","artist":"Roth","year":"1967","publisher":"Marvel"}
+{"comicName":"SDfawdf","issueNumber":"2","volumeNumber":"22","list":"readList","author":"","artist":"","year":"","publisher":""}
+{"comicName":"asdfa","issueNumber":"11","volumeNumber":"1","list":"readList","author":"","artist":"","year":"","publisher":""}

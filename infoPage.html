@@ -49,6 +49,31 @@
                 window.location.href = backPage;
             });
         });
+
+
+        document.addEventListener("DOMContentLoaded", async () => {
+    const comicDetails = await window.electronAPI.getComicDetails();
+    const comicInfoDiv = document.getElementById("comic-info");
+
+    if (!comicDetails) {
+        comicInfoDiv.innerHTML = "<p>Error loading comic details.</p>";
+        return;
+    }
+
+    comicInfoDiv.innerHTML = `
+        <p><strong>Comic Name:</strong> ${comicDetails.comicName}</p>
+        <p><strong>Issue #:</strong> ${comicDetails.issueNumber}</p>
+        <p><strong>Volume #:</strong> ${comicDetails.volumeNumber}</p>
+        ${comicDetails.author ? `<p><strong>Author:</strong> ${comicDetails.author}</p>` : ""}
+        ${comicDetails.artist ? `<p><strong>Artist:</strong> ${comicDetails.artist}</p>` : ""}
+        ${comicDetails.year ? `<p><strong>Year:</strong> ${comicDetails.year}</p>` : ""}
+        ${comicDetails.publisher ? `<p><strong>Publisher:</strong> ${comicDetails.publisher}</p>` : ""}
+    `;
+
+    document.getElementById("back-button").addEventListener("click", () => {
+        window.location.href = "toReadPage.html";
+    });
+});
     </script>
 </body>
 </html>
